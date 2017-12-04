@@ -13,12 +13,12 @@
 		httpRequest.onreadystatechange = processRequest;
 		httpRequest.open('GET', './includes/functions.php?carModel=' + this.id);
 		httpRequest.send();
-	};
+	}
 
 	function processRequest() {
 	    let reqIndicator = document.querySelector('.request-state');
 	    reqIndicator.textContent = httpRequest.readyState;
-debugger;
+//debugger;
 	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
 	      if (httpRequest.status === 200) { // 200 means everything is awesome
 debugger;
@@ -32,11 +32,11 @@ debugger;
 	}
 
 	function processResult(data) {
-		const { model, price, description} = data;
+		const { modelName, pricing, modelDetails} = data;
 
-		let modelName = document.querySelector('.modelName').textContent = model;
-		let priceInfo = document.querySelector('.priceInfo').innerHTML = price;
-		let modelDetails = document.querySelector('.modelDetails').textContent = description;
+		let model = document.querySelector('.modelName').textContent = modelName;
+		let price = document.querySelector('.priceInfo').innerHTML = pricing;
+		let desc = document.querySelector('.modelDetails').textContent = modelDetails;
 
 		theImages.forEach(function(image, index){
 			image.classList.add("nonActive");
