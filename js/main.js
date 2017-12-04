@@ -1,32 +1,56 @@
 (function() {
-	var theImages = document.querySelectorAll('.data-ref'),
-	modelName = document.querySelector('.modelName'),
-	priceInfo = document.querySelector('.priceInfo'),
-	modelDetails = document.querySelector('.modelDetails');
 
-	function changeElements() {
+	var theImages = document.querySelectorAll('.data-ref');
 
-		let objectIndex = carData [this.id];
+	const httpRequest = new XMLHttpRequest();
 
-		modelName.firstChild.nodeValue = objectIndex.model;
-		priceInfo.firstChild.nodeValue = objectIndex.price;
-		modelDetails.firstChild.nodeValue = objectIndex.description;
+	function getChangeElements() {
+		if (!httpRequest) {
+			alert('giving up...browser not supported');
+			return false;
+		}
+
+		httpRequest.onreadystatechange = processRequest;
+		httpRequest.open('GET', './includes/functions.php?carModel=' + this.id);
+		httpRequest.send();
+	};
+
+	function processRequest() {
+	    let reqIndicator = document.querySelector('.request-state');
+	    reqIndicator.textContent = httpRequest.readyState;
+debugger;
+	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+	      if (httpRequest.status === 200) { // 200 means everything is awesome
+debugger;
+	        let data = JSON.parse(httpRequest.responseText);
+
+	        processResult(data);
+	      } else {
+	        alert('There was a problem with the request.');
+	      }
+	    }
+	}
+
+	function processResult(data) {
+		const { model, price, description} = data;
+
+		let modelName = document.querySelector('.modelName').textContent = model;
+		let priceInfo = document.querySelector('.priceInfo').innerHTML = price;
+		let modelDetails = document.querySelector('.modelDetails').textContent = description;
 
 		theImages.forEach(function(image, index){
-
 			image.classList.add("nonActive");
 		});
 
-		this.classList.remove("nonActive");
+		document.querySelector(`#${data.model}`).classList.remove("nonActive");
 	}
 
 	theImages.forEach(function(image, index){
-
-		image.addEventListener('click', changeElements, false);
+		image.addEventListener('click', getChangeElements, false);
 	});
 
 	//document.querySelector('#spring').click();
-	changeElements.call(document.querySelector("#F55"));
+	getChangeElements.call(document.querySelector("#F55"));
 
 
 })();
