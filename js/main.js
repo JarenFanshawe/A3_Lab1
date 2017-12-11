@@ -21,7 +21,7 @@
 //debugger;
 	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
 	      if (httpRequest.status === 200) { // 200 means everything is awesome
-debugger;
+//debugger;
 	        let data = JSON.parse(httpRequest.responseText);
 
 	        processResult(data);
