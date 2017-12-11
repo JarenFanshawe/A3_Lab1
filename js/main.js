@@ -2,46 +2,17 @@
 
 	var theImages = document.querySelectorAll('.data-ref');
 
-	//const httpRequest = new XMLHttpRequest();
-
 	function getChangeElements() {
 		const url = './includes/functions.php?carModel=' + this.id;
 
 		fetch(url) //do an AJAX call with fetch
 		.then((resp) => resp.json()) //convert to JSON
-		.then((data) => {processResult(data); }) // call the process function
+		.then({ modelName, priceing, modelDetails } => {
+			processResult(data);
+		}) // call the process function
 		.catch(function(error) {
 			console.log(error);
 		});
-		/*
-		if (!httpRequest) {
-			alert('giving up...browser not supported');
-			return false;
-		}
-
-		httpRequest.onreadystatechange = processRequest;
-		httpRequest.open('GET', './includes/functions.php?carModel=' + this.id);
-		httpRequest.send();
-		*/
-	}
-
-/*
-	function processRequest() {
-	    let reqIndicator = document.querySelector('.request-state');
-	    reqIndicator.textContent = httpRequest.readyState;
-//debugger;
-	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-	      if (httpRequest.status === 200) { // 200 means everything is awesome
-//debugger;
-	        let data = JSON.parse(httpRequest.responseText);
-
-	        processResult(data);
-	      } else {
-	        alert('There was a problem with the request.');
-	      }
-	    }
-	}
-	*/
 
 	function processResult(data) {
 		const { modelName, pricing, modelDetails} = data;
