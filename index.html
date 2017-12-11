@@ -31,7 +31,7 @@
 	<!-- <div class="small-3 columns"></div> -->
 	<div class="small-12 columns video-container">
 		<i class="fa fa-volume-off vol-indicator"></i><!-- fa-volume-up on mouseover -->
-		<video class="responsive" autoplay muted>
+		<video class="responsive" autoplay muted controls>
 		<!-- we should do fallbacks here, but for now we'll just work with mp4 -->
 		<source src="video/mini_1.mp4" type="video/mp4">
 			Your browser doesn't support video?!? that sucks.
@@ -103,6 +103,7 @@
     <script>
       $(document).foundation();
     </script>
+	<script src="js/modules/video.js"></script>
     <script src="js/carData.js"></script>
     <script src="js/main.js"></script>
   </body>

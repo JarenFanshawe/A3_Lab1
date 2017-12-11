@@ -37,4 +37,21 @@
 
     echo json_encode($row);
   }
+
+  //Video Thumbs
+
+  if (isset($_GET['getVideos'])) {
+
+    $myQuery = "SELECT * FROM video";
+
+    $result = mysqli_query($conn, $myQuery);
+	$rows = array();
+
+	while($row = mysqli_fetch_assoc($result)) {
+		$rows[] = $row;
+	}
+
+    echo json_encode($rows);
+  }
+
 ?>
