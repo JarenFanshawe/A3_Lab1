@@ -2,9 +2,18 @@
 
 	var theImages = document.querySelectorAll('.data-ref');
 
-	const httpRequest = new XMLHttpRequest();
+	//const httpRequest = new XMLHttpRequest();
 
 	function getChangeElements() {
+		const url = './includes/functions.php?carModel=' + this.id;
+
+		fetch(url) //do an AJAX call with fetch
+		.then((resp) => resp.json()) //convert to JSON
+		.then((data) => {processResult(data); }) // call the process function
+		.catch(function(error) {
+			console.log(error);
+		});
+		/*
 		if (!httpRequest) {
 			alert('giving up...browser not supported');
 			return false;
@@ -13,8 +22,10 @@
 		httpRequest.onreadystatechange = processRequest;
 		httpRequest.open('GET', './includes/functions.php?carModel=' + this.id);
 		httpRequest.send();
+		*/
 	}
 
+/*
 	function processRequest() {
 	    let reqIndicator = document.querySelector('.request-state');
 	    reqIndicator.textContent = httpRequest.readyState;
@@ -30,6 +41,7 @@
 	      }
 	    }
 	}
+	*/
 
 	function processResult(data) {
 		const { modelName, pricing, modelDetails} = data;
