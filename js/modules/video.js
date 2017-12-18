@@ -29,7 +29,7 @@ var video = {
 	},
 
 	fetchVideoThumbs() {
-		const url = '.includes/functions.php?getVideos=true';
+		const url = ".includes/functions.php?getVideos=true";
 
 		fetch(url) //do another fetch call
 			.then((resp) => resp.json()) // convert result to json
@@ -40,9 +40,29 @@ var video = {
 	},
 
 	loadVideoThumbs(data) {
+		// debugger;
+
+		let thumbHolder = document.querySelector(".video-thumbs");
+
+		data.forEach(thumb => {
+let docFrag = `<li class="vid-thumb" role="button" data-videopath="${thumb.path}">
+			<img src="images/${thumb.placeholder}" alt="mini commercial" class="responsive">
+		</li>`;
+
+		thumbHolder.innerHTML += docFrag;
+		})
+
+		thumbHolder.querySelectorAll('li').forEach((thumb) => thumb.addEventListener('click', video.loadNewVideo));
+	},
+
+	loadNewVideo() {
 		debugger;
 
-		//add video thumbnails here
+		let videoPath = "video/" + this.dataset.videopath;
+
+		video.videoPlayer.src = videoPath;
+		video.videoPlayer.load();
+		video.videoPlayer.play();
 	},
 
 	init() {
@@ -50,6 +70,8 @@ var video = {
 		video.videoPlayer.addEventListener('mouseover', video.volOn, false);
 		video.videoPlayer.addEventListener('mouseout', video.volOff, false);
 		video.videoPlayer.addEventListener('ended', video.popOverlay, false);
+
+		video.fetchVideoThumbs();
 	}
 }
 
