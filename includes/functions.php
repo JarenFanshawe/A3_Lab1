@@ -5,7 +5,7 @@
   $host = "localhost";
   $db = "cooperInfo";
 
-  $conn = mysqli_connect($host, $user, $pass, $db);
+  $conn = mysqli_connect($host, $user, $pass, $db, "8888");
   mysqli_set_charset($conn, 'utf8');
 
   if (!$conn) {
